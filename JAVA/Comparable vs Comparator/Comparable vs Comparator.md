@@ -196,3 +196,70 @@ Arrays.sort(arr, new Comparator<String[]>() ) {
  	generic으로 생성
 
 }
+
+### compareTo()
+
+> 두개의 값을 비교하여 int 값으로 반환해주는 함수이다.
+
+"문자열의 비교"와 "숫자의 비교"가 존재한다.
+
+숫자의 비교는 단순히 크다(1), 같다(0), 작다(-1) 의 결과값을 리턴해주는 반면
+
+문자열의 비교는 같다(0), 그 외 양수/음수 값의 결과를 리턴한다.
+
+**[기준값.compareTo(비교대상)]**
+
+1. 숫자형 비교
+
+```java
+public class CompareTo{
+    public static void main(String[] args){
+        int x = 3;
+        int y = 4;
+        double z = 1.0;
+        System.out.print(x.compareTo(y)); // -1
+        System.out.print(x.compareTo(3)); // 0
+        System.out.print(x.compareTo(2)); // 1
+    }
+}
+```
+
+2. 문자열 비교
+   1) 비교대상에 문자열이 포함되어 있을 경우
+   2) 비교대상과 전혀 다른 문자열인 경우
+
+```java
+public class CompareTo{
+    public static void main(Sting[] args){
+        String str = "abcd";
+        System.out.print(str.compareTo("abcd")); //0
+        System.out.print(str.compareTo("ab")); //2
+        System.out.print(str.compareTo("a")); //3
+        System.out.print(str.compareTo("c")); //-2
+        
+        
+        System.out.print(str.compareTo("abfd"); //-3
+        
+        
+        System.out.print(str.compareTo("ABCD")); //32
+    }
+}
+```
+
+- str.compareTo("ab") 는 왜 2라는 값이 나왔을까?
+
+이유는 "abcd"에 "ab"가 포함되어 있으면 즉, 기준값에 비교대상이 포함되어 있을 경우 서로의 문자열 길이의 차이값을 리턴해주기 때문이다.
+
+- 그럼 str.compareTo("c") 의 값은 왜 -2가 나온 것일까?
+
+compareTo는 같은 위치의 문자만 비교하기 때문에 맨 앞에서 틀리면 바로 아스키값으로 비교처리를 한다. 그래서 아스키코드 값 a=97 / c=99 이기 때문에 차이값 -2 가 리턴되는 것이다. 
+
+- 그렇다면 str.compareTo("abfd") 의 값은 무엇일까 ? 
+
+ab는 동일하고 c 와 f 의 비교에서 차이가 발생한다. 그렇기 때문에 아스키코드 값 c=99 / f=102 이기 때문에 차이값 -3 이 리턴된다.
+
+- str.compareTo("ABCD")의 값은 무엇일까?
+
+compareTo의 경우 대소문자를 구분하기 때문에 아스키코드 값 a=97 / A=65 이기 때문에 차이값 32가 리턴된다.
+
+여기서 대소문자를 무시하고 비교해주는 함수 **compareToIgnorecase()** 가 존재한다.
